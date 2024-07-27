@@ -3,11 +3,12 @@
 apt-get -y update 
 apt-get -y upgrade 
 apt-get -y install wget curl vim openssl git
-cd /root
+cd /vagrant
 git clone --depth 1 https://github.com/kelseyhightower/kubernetes-the-hard-way.git
 
-cd kubernetes-the-hard-way
-mkdir -p /root/kubernetes-the-hard-way/downloads
+
+cd /vagrant/kubernetes-the-hard-way
+mkdir -p /vagrant/kubernetes-the-hard-way/downloads
 wget -q --show-progress \
   --https-only \
   --timestamping \
