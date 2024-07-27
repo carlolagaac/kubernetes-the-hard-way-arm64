@@ -1,0 +1,57 @@
+Vagrant.configure("2") do |config|
+  config.hostmanager.enabled = true 
+  config.hostmanager.manage_host = true
+  
+### jumpbox vm  ####
+  config.vm.define "jumpbox" do |jump01|
+    jump01.vm.box = "bento/debian-12-arm64"
+    jump01.vm.hostname = "jump01"
+    jump01.vm.network "private_network", ip: "192.168.100.5"
+    jump01.vm.disk :disk, size: "10GB", primary: true
+    jump01.vm.provision "shell", path: "jumpbox.sh"  
+    jump01.vm.provider "vmware_desktop" do |vmw|
+      vmw.memory = "512"
+      vmw.cpus = "1"
+    end
+
+  end
+  
+### server vm  #### 
+  config.vm.define "server" do |server01|
+    server01.vm.box = "bento/debian-12-arm64"
+    server01.vm.hostname = "server"
+    server01.vm.network "private_network", ip: "192.168.100.10"
+    server01.vm.disk :disk, size: "20GB", primary: true
+    server01.vm.provision "shell", path: "server.sh"  
+    server01.vm.provider "vmware_desktop" do |vmw|
+      vmw.memory = "2048"
+      vmw.cpus = "1"
+    end
+  end
+  
+### node-0 vm  ####
+  config.vm.define "node0" do |node0|
+    node0.vm.box = "bento/debian-12-arm64"
+    node0.vm.hostname = "node-0"
+    node0.vm.network "private_network", ip: "192.168.100.20"
+    node0.vm.disk :disk, size: "20GB", primary: true
+    node0.vm.provision "shell", path: "node.sh"  
+    node0.vm.provider "vmware_desktop" do |vmw|
+      vmw.memory = "2048"
+      vmw.cpus = "1"
+    end
+  end
+  
+### node-1 vm ###
+   config.vm.define "node1" do |node1|
+    node1.vm.box = "bento/debian-12-arm64"
+    node1.vm.hostname = "node-1"
+    node1.vm.network "private_network", ip: "192.168.100.21"
+    node1.vm.disk :disk, size: "20GB", primary: true
+    node1.vm.provision "shell", path: "node.sh"  
+    node1.vm.provider "vmware_desktop" do |vmw|
+      vmw.memory = "2048"
+      vmw.cpus = "1"
+    end
+   end
+end
