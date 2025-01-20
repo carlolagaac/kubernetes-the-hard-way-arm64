@@ -36,7 +36,7 @@ cp id_rsa /root/.ssh/id_rsa
 chmod 600 /root/.ssh/authorized_keys
 
 while read IP FQDN HOST SUBNET; do 
-  ssh-copy-id root@${IP}
+  ssh-copy-id -i ./id_rsa.pub root@${IP}
 done < machines.txt
 
 while read IP FQDN HOST SUBNET; do 
